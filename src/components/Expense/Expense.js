@@ -1,10 +1,25 @@
 import React , {useState, useEffect} from 'react';
-import './Expense.css';
+import styled from 'styled-components';
 import { useItemsContext } from '../ContextProvider/ItemsContext';
 import ExpenseItem  from '../ExpenseItem/ExpenseItem';
 import ExpenseFilter from '../ExpenseFilter/ExpenseFilter';
 import { useData } from '../Data/Data';
 import Loader from '../Loader/Loader';
+
+const Cost = styled.p`
+  margin: 0 auto;
+  width: 50%;
+  padding: 10px;
+  font-size: 30px;
+`;
+
+const Error = styled.p`
+  margin: 0 auto;
+  width: 50%;
+  padding: 10px;
+  font-size: 30px;
+  color: red;
+`;
 
 const Expense = () => {
   const { items, setItems } = useItemsContext()
@@ -52,10 +67,10 @@ const Expense = () => {
         <>
         <ExpenseFilter filterValue={filterValue} setFilterValue={setFilterValue}></ExpenseFilter>
             {!loading && filteredItems?.map((items) => <ExpenseItem deleteHandler={deleteHandler} key={items.id} item={items}></ExpenseItem>)}
-            {!loading && filteredItems.length !==0 && <p className="cost"> Total Expenses: {calculateCost()}</p>}
-            {!loading && !error && filteredItems.length === 0 && <p className="cost">No items</p>}
+            {!loading && filteredItems.length !==0 && <Cost className="cost"> Total Expenses: {calculateCost()}</Cost>}
+            {!loading && !error && filteredItems.length === 0 && <Cost className="cost">No items</Cost>}
             {!error && loading && <Loader />}
-            {error && <p>error...</p>}
+            {error && <Error>error in fetching data</Error>}
         </>
     )
 }

@@ -2,20 +2,28 @@ import React , { useState} from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
 import { useItemsContext } from '../ContextProvider/ItemsContext';
-import './NewExpenseForm.css'
 import InputField  from '../InputField/InputField';
 import Button from '../Button/Button';
 
 const Form = styled.form`
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0 auto;
     border: 0;
     padding: 10px;
+    font-size: 20px;
     box-shadow: 2px 7px 10px #888888;
     margin-top: 10px;
     @media (min-width: 768px) {
         width: 80%;
         padding: 30px;
      }
+`
+
+const Label = styled.label`
+    width: 70%;
+    display: block;
+   
+    margin: 10px;
 `
 
 const NewExpenseForm = () => {
@@ -68,11 +76,11 @@ const NewExpenseForm = () => {
 
     return (
         <Form onSubmit={submitHandler} >
-             <label className="label">Date:</label>
+             <Label className="label">Date:</Label>
             <InputField value={initialFormValues.date} type="date" onChange={setDate}></InputField>
-            <label className="label">Expense Name:</label>
+            <Label className="label">Expense Name:</Label>
             <InputField className="input" value={initialFormValues.expenseName} type="text" onChange={setExpense}></InputField>
-            <label className="label">Cost:</label>
+            <Label className="label">Cost:</Label>
             <InputField className="input" value={initialFormValues.cost} placeholder="£" type="number" onChange={setCost}></InputField>
         
        
