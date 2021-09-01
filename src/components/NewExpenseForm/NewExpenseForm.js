@@ -8,9 +8,9 @@ import Button from '../Button/Button';
 
 const Form = styled.form`
     margin: 0 auto;
-    border: 0.5px solid #888888;;
+    border: 0;
     padding: 10px;
-    box-shadow: 5px 10px #888888;
+    box-shadow: 2px 7px 10px #888888;
     margin-top: 10px;
     @media (min-width: 768px) {
         width: 80%;
@@ -53,18 +53,16 @@ const NewExpenseForm = () => {
                 const {data } = await axios.post("https://expense-app-523df-default-rtdb.firebaseio.com/expenses.json", 
                     { ...initialFormValues }
                 )
+                setFormValues({
+                    date: '',
+                    expenseName: '',
+                    cost:  ''
+                })
                 OnAddingExpense(initialFormValues, data.name)
             }
            catch(err) {
                throw new Error('something wrong!!')
            }
-          
-          
-            setFormValues({
-                date: '',
-                expenseName: '',
-                cost:  ''
-            })
             
     }
 

@@ -3,7 +3,7 @@ import './Expense.css';
 import { useItemsContext } from '../ContextProvider/ItemsContext';
 import ExpenseItem  from '../ExpenseItem/ExpenseItem';
 import ExpenseFilter from '../ExpenseFilter/ExpenseFilter';
-import { useGetData } from '../Data/Data';
+import { useData } from '../Data/Data';
 import Loader from '../Loader/Loader';
 
 const Expense = () => {
@@ -12,13 +12,13 @@ const Expense = () => {
   const [filteredItems, setFilteredItems]=useState([])
 
 
-  const {loading, error, sendRequest, deleteData } = useGetData()
+  const {loading, error, sendRequest, deleteData } = useData()
 
- const setFunc  = (data) => setItems(data) 
-
+  
     useEffect(() => {
+      const setFunc  = (data) => setItems(data) 
       sendRequest(setFunc)
-    }, [])
+    }, [setItems, sendRequest])
 
   useEffect(() => {
     let filteredItem = []

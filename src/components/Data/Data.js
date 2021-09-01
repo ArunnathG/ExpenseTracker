@@ -1,13 +1,13 @@
 
-import {useState, } from "react"
+import {useState, useCallback } from "react"
 import axios from 'axios';
 
-export const useGetData = ( ) => {
+export const useData = ( ) => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const sendRequest = async(setFunc) => {
+    const sendRequest = useCallback(async(setFunc) => {
         try{
           const itemData = []
           setLoading(true)
@@ -29,10 +29,9 @@ export const useGetData = ( ) => {
         setLoading(false)
         setError(err.message)
       }
-    }
+    },[])
 
     const deleteData = async(itemId) => {
-       console.log('delte', itemId)
         try {
             setLoading(true)
             await axios.delete(`https://expense-app-523df-default-rtdb.firebaseio.com/expenses/${itemId}.json`)
