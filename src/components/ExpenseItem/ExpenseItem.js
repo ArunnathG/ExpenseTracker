@@ -16,7 +16,6 @@ const Container = styled.div`
 
 const Item = styled.span`
     padding: 5px;
-    font-size: 25px;
     display: block;
     @media (min-width: 768px) {
         padding: 20px;

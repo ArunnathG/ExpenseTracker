@@ -10,14 +10,12 @@ const Cost = styled.p`
   margin: 0 auto;
   width: 50%;
   padding: 10px;
-  font-size: 30px;
 `;
 
 const Error = styled.p`
   margin: 0 auto;
   width: 50%;
   padding: 10px;
-  font-size: 30px;
   color: red;
 `;
 

@@ -10,7 +10,7 @@ const FilterContainer = styled.div`
 `;
 
 const FilterYear = styled.label`
-    font-size: 25px;
+    
 `
 
 const DropDown = styled.select`

@@ -10,7 +10,6 @@ const Form = styled.form`
     margin: 0 auto;
     border: 0;
     padding: 10px;
-    font-size: 20px;
     box-shadow: 2px 7px 10px #888888;
     margin-top: 10px;
     @media (min-width: 768px) {
