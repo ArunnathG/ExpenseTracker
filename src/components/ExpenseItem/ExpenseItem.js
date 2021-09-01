@@ -4,7 +4,7 @@ import Icon from '../../images/delete-icon.jpeg';
 
 const Container = styled.div`
     margin: 0 auto;
-    background-color: lightgray;
+    background-color: rgb(211 220 210);
     padding: 10px;
     
     margin-top: 10px;

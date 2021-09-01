@@ -2,12 +2,14 @@ import styled , {css} from 'styled-components';
 
 const Button = styled.button`
     ${(prop) => css`
-        background-color: burlywood;
-        border-radius:  5px;
+        cursor: pointer;
+        background-color: rgb(229 226 234);
+        border-radius: 10px;
+        font-size: 22px;
         width: 70%;
-        padding: 10px;
+        padding: 15px;
         margin-top: 10px;
-        box-shadow: cornsilk;
+        border: 0px;
         display: block;
         margin: 0 auto;
         margin-top: 10px;
