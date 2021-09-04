@@ -1,24 +1,30 @@
-import styled  from 'styled-components'
+import styled , {css} from 'styled-components'
 
 const Input = styled.input`
-   width: 50%;
-   padding: 10px;
+  ${(prop) => css `
+   padding: 15px;
    outline: none;
    margin: 10px;
    border-radius: 15px;
    border-radius: 15px;
-        border: 1px solid green;
     border: 1px solid darkgrey;
     @media (min-width: 768px) {
         width: 40%;
      }
-    
+
+     ${
+         prop.inValid && css`
+         border: 1px solid red;
+         `
+     }
+     `
+    }
 `;
 
-const InputField = ({value, type, onChange, placeholder}) => {
+const InputField = ({value, type, onChange, onBlur, placeholder, inValid}) => {
 
     return (
-        <Input type={type} placeholder={placeholder} onChange={onChange} value={value} />
+        <Input inValid={inValid} type={type} onBlur={onBlur} placeholder={placeholder} onChange={onChange} value={value} />
     )
 }
 

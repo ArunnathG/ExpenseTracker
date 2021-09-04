@@ -1,6 +1,6 @@
 import React , {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import { useItemsContext } from '../ContextProvider/ItemsContext';
+import { useAuthContext } from '../ContextProvider/AuthContext';
 import ExpenseItem  from '../ExpenseItem/ExpenseItem';
 import ExpenseFilter from '../ExpenseFilter/ExpenseFilter';
 import { useData } from '../Data/Data';
@@ -12,7 +12,9 @@ const Cost = styled.p`
   padding: 10px;
 `;
 
-const Error = styled.p`
+
+
+export const Error = styled.p`
   margin: 0 auto;
   width: 50%;
   padding: 10px;
@@ -20,11 +22,11 @@ const Error = styled.p`
 `;
 
 const Expense = () => {
-  const { items, setItems } = useItemsContext()
+  const { items, setItems, userDetails } = useAuthContext()
   const [filterValue, setFilterValue]=useState(2021)
   const [filteredItems, setFilteredItems]=useState([])
 
-
+  
   const {loading, error, sendRequest, deleteData } = useData()
 
   
@@ -35,14 +37,13 @@ const Expense = () => {
 
   useEffect(() => {
     let filteredItem = []
-    
     if(items.length !==0 ) {
-     
-      filteredItem = items.filter(({ year }) => { return year === filterValue})
+      const userItems = items.filter(({ id }) => { return id === userDetails.localId})
+      filteredItem = userItems.filter(({ year }) => { return year === filterValue})
       setFilteredItems(filteredItem)
     }
 
-  }, [filterValue, items])
+  }, [filterValue, items, userDetails])
   
   
   const calculateCost = () => {
@@ -55,8 +56,9 @@ const Expense = () => {
   }
 
   const deleteHandler = (itemId) => {
+    
     deleteData(itemId)
-      const excludeDeletedItems = items.filter(({ id }) => { return id !== itemId})
+      const excludeDeletedItems = items.filter(({ key }) => { return key !== itemId})
       setItems(excludeDeletedItems)
       setFilteredItems(excludeDeletedItems)
   }

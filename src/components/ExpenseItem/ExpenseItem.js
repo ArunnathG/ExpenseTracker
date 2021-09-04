@@ -35,7 +35,6 @@ const DeleteIcon = styled.img`
 
 const ExpenseItem = ({item, deleteHandler}) => {
     const {date, expenseName, cost} = item
-    console.log()
     return(
         <Container>
                 <DateItem>
@@ -47,7 +46,7 @@ const ExpenseItem = ({item, deleteHandler}) => {
             <Item>{expenseName}</Item>
             <Item>{cost}£</Item>
             
-            <Button delete onClick={() => deleteHandler(item.id)}><DeleteIcon src={Icon}></DeleteIcon></Button>
+            <Button delete onClick={() => deleteHandler(item.key)}><DeleteIcon src={Icon}></DeleteIcon></Button>
           
         </Container>
     )

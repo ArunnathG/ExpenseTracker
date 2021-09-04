@@ -1,7 +1,7 @@
 import React , { useState} from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
-import { useItemsContext } from '../ContextProvider/ItemsContext';
+import { useAuthContext } from '../ContextProvider/AuthContext';
 import InputField  from '../InputField/InputField';
 import Button from '../Button/Button';
 
@@ -18,7 +18,7 @@ const Form = styled.form`
      }
 `
 
-const Label = styled.label`
+export const Label = styled.label`
     width: 70%;
     display: block;
    
@@ -26,7 +26,8 @@ const Label = styled.label`
 `
 
 const NewExpenseForm = () => {
-    const { OnAddingExpense } = useItemsContext()
+    const { OnAddingExpense , userDetails} = useAuthContext()
+    
     const [initialFormValues, setFormValues] = useState({
         date: '',
         expenseName: '',
@@ -58,13 +59,14 @@ const NewExpenseForm = () => {
            
             try {
                 const {data } = await axios.post("https://expense-app-523df-default-rtdb.firebaseio.com/expenses.json", 
-                    { ...initialFormValues }
+                    { ...initialFormValues, id: userDetails.localId }
                 )
                 setFormValues({
                     date: '',
                     expenseName: '',
                     cost:  ''
                 })
+                
                 OnAddingExpense(initialFormValues, data.name)
             }
            catch(err) {
@@ -75,12 +77,13 @@ const NewExpenseForm = () => {
 
     return (
         <Form onSubmit={submitHandler} >
-             <Label className="label">Date:</Label>
+             
+             <Label>Date:</Label>
             <InputField value={initialFormValues.date} type="date" onChange={setDate}></InputField>
-            <Label className="label">Expense Name:</Label>
-            <InputField className="input" value={initialFormValues.expenseName} type="text" onChange={setExpense}></InputField>
-            <Label className="label">Cost:</Label>
-            <InputField className="input" value={initialFormValues.cost} placeholder="£" type="number" onChange={setCost}></InputField>
+            <Label>Expense Name:</Label>
+            <InputField value={initialFormValues.expenseName} type="text" onChange={setExpense}></InputField>
+            <Label>Cost:</Label>
+            <InputField  value={initialFormValues.cost} placeholder="£" type="number" onChange={setCost}></InputField>
         
        
       
