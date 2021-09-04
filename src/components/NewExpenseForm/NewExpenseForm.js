@@ -1,4 +1,4 @@
-import React , { useState} from 'react'
+import React , { useState , useEffect} from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
 import { useAuthContext } from '../ContextProvider/AuthContext';
@@ -26,8 +26,21 @@ export const Label = styled.label`
 `
 
 const NewExpenseForm = () => {
-    const { OnAddingExpense , userDetails} = useAuthContext()
+    const { OnAddingExpense , userDetails , autoLogOutEnabled, logOutHandler } = useAuthContext()
+        const [remainingTime, setRemainingTime] = useState(10)
     
+    useEffect(() => {
+        // Timer to indicate auto log out
+        setTimeout(() => {
+            if(autoLogOutEnabled && remainingTime > 0) {
+                setRemainingTime(remainingTime - 1)
+            }
+            if(remainingTime === 0) {
+                logOutHandler()
+            }
+        },1000)
+    }, [autoLogOutEnabled, remainingTime, logOutHandler])
+
     const [initialFormValues, setFormValues] = useState({
         date: '',
         expenseName: '',
@@ -77,7 +90,7 @@ const NewExpenseForm = () => {
 
     return (
         <Form onSubmit={submitHandler} >
-             
+             {autoLogOutEnabled && <h1>Logging off in {remainingTime} seconds</h1>}
              <Label>Date:</Label>
             <InputField value={initialFormValues.date} type="date" onChange={setDate}></InputField>
             <Label>Expense Name:</Label>

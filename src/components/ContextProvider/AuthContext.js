@@ -9,6 +9,7 @@ export const useAuthContext = () => useContext(AuthContext);
 export const AuthContextProvider = ({children}) => {
     const initialToken = sessionStorage.getItem('token');
     const initialLocalId = sessionStorage.getItem('id');
+    const [autoLogOutEnabled, setAutoLogOutEnabled] = useState(false);
     const [items, setItems]=useState([])
 
     const [userDetails, setUserDetails] = useState({
@@ -48,6 +49,16 @@ export const AuthContextProvider = ({children}) => {
                 localId: '',
                 email: ''
             })
+            setAutoLogOutEnabled(false)
+        }
+
+        const autoLogOut = () => {
+            setAutoLogOutEnabled(true)
+        }
+
+        if(initialToken) {
+            // AutoLogout
+            setTimeout(autoLogOut, 300000) //5 minutes of inactivity 
         }
 
     return (
@@ -58,7 +69,8 @@ export const AuthContextProvider = ({children}) => {
             userDetails,
             setUserDetails,
             logInHandler,
-            logOutHandler
+            logOutHandler,
+            autoLogOutEnabled
         }}>
                 {children}
         </AuthContext.Provider>
